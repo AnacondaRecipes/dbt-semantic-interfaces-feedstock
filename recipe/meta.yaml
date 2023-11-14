@@ -10,17 +10,17 @@ source:
   sha256: d79cb4b5e5103099874530735a117db61f7dcbb1a774f9ce65068c24cb7e874e
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python >=3.8
+    - python
     - hatchling
     - pip
   run:
-    - python >=3.8
+    - python
     - pydantic >=1.10,<2.dev0
     - jsonschema >=4.0,<5.dev0
     - pyyaml >=6.0,<7.dev0
@@ -42,8 +42,12 @@ test:
 about:
   home: https://github.com/dbt-labs/dbt-semantic-interfaces
   summary: The shared semantic layer definitions that dbt-core and MetricFlow use
+  description: The shared semantic layer definitions that dbt-core and MetricFlow use
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
+  dev_url: https://github.com/dbt-labs/dbt-semantic-interfaces
+  doc_url: https://github.com/dbt-labs/dbt-semantic-interfaces
 
 extra:
   recipe-maintainers:
