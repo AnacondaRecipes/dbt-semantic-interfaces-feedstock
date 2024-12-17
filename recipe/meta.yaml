@@ -6,8 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/dbt_semantic_interfaces-{{ version }}.tar.gz
-  sha256: 3a497abef1ba8112affdf804b26bfdcd5468ed95cc924b509068e18d371c7c4d
+  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/dbt_semantic_interfaces-{{ version }}.tar.gz
+    sha256: 3a497abef1ba8112affdf804b26bfdcd5468ed95cc924b509068e18d371c7c4d
+  - url: https://github.com/dbt-labs/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: 91618c52e61731f0d51fd032aaffafc300087a752d596a0bd489a5e9bf94fc2a
+    folder: tests
 
 build:
   skip: true  # [py<38]
@@ -32,12 +35,17 @@ requirements:
     - typing-extensions >=4.4,<5
 
 test:
+  source_files:
+    - tests
   imports:
     - dbt_semantic_interfaces
   commands:
     - pip check
+    - pytest -vv tests
   requires:
     - pip
+    - pytest
+    - hypothesis
 
 about:
   home: https://github.com/dbt-labs/dbt-semantic-interfaces
