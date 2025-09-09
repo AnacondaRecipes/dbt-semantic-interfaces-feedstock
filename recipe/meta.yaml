@@ -1,16 +1,13 @@
 {% set name = "dbt-semantic-interfaces" %}
-{% set version = "0.7.4" %}
+{% set version = "0.9.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-    sha256: dcedda6702ecabb633aa4e8ab3b1eb7f9c4301dcc0026076a4a0ef64f9e59cf0
-  - url: https://github.com/dbt-labs/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: be2e07b395095bdee6d8627dc9df4634cfae4afbed792b3c28e36d61a635d372
-    folder: tests
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+    sha256: 5c921257dce8bb51c9ffb5479f2bdd959e16ebfb98ee833de6daa70788c47271
 
 build:
   number: 0
@@ -19,40 +16,35 @@ build:
 
 requirements:
   host:
+    - pip
     - python
     - hatchling
-    - pip
   run:
     - python
     - pydantic >=1.10,<3
     - jsonschema >=4.0,<5
     - pyyaml >=6.0,<7
     - more-itertools >=8.0,<11.0
-    - jinja2 >=3.1.3,<4
+    - jinja2 >=3.1.6,<4
     - click >=7.0,<9.0
     - python-dateutil >=2.0,<3
-    - importlib_metadata >=6.0,<7
+    - importlib_metadata >=6.0,<9
     - typing-extensions >=4.4,<5
 
 test:
-  source_files:
-    - tests
   imports:
     - dbt_semantic_interfaces
   commands:
     - pip check
-    - pytest -vv tests
   requires:
     - pip
-    - pytest >=7.3,<8
-    - hypothesis >=6.87,<7
 
 about:
   home: https://github.com/dbt-labs/dbt-semantic-interfaces
   summary: The shared semantic layer definitions that dbt-core and MetricFlow use
   description: |
     This repo contains the shared semantic classes, default validation, and tests designed to be used by both the dbt-core and MetricFlow projects. 
-    By centralizing these shared resources, we aim to maintain consistency and reduce code duplication across both projects.
+    By centralizing these shared resources, we aim to maintain consistency and reduce code duplication across both projects
   license: Apache-2.0
   license_family: Apache
   license_file: LICENSE
